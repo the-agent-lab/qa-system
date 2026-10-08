@@ -2,6 +2,11 @@
 set -e
 R=qa/2026-10-08-discount
 mkdir -p "$R/evidence" app
+cat > SPEC.md <<'MD'
+# Discount codes
+
+- R1. Code SAVE10 takes 10% off a cart of 100.00 or more. A 200.00 cart costs 180.00 after the code. A cart under 100.00 gets no discount.
+MD
 printf '2026-10-08-discount\n' > qa/.active
 cat > app/discount.py <<'PY'
 def apply_code(total, code):

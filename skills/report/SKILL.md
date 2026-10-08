@@ -28,8 +28,13 @@ the `skeptic` agent of this plugin. It looks for another explanation: wrong test
 measurement that could not have seen the value, an oracle that is out of date. Apply its outcome:
 
 - **holds**: keep it as a suspected bug.
-- **measurement doubt**: rerun the check with the fix the skeptic named, then classify again.
+- **measurement doubt**: rerun the check with the fix the skeptic named, then classify again. If the rerun cannot be
+  done now (no access to the test server, no time), record the doubt in `notes.tsv` with class `unclear` and the
+  skeptic's reason, and go on to step 3.
 - **needs an answer**: change the oracle in CASES.md to `pending: <question>` and classify again.
+
+Whatever the skeptic says, the run ends with a written report. An open doubt makes the verdict INCONCLUSIVE and is
+listed in the report with the rerun that would settle it; it never means stopping without a report.
 
 ## 3. Write and check the report
 

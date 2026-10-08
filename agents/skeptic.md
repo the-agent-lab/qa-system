@@ -22,7 +22,9 @@ alternative explanations, in this order, and say for each one whether the eviden
 4. **The environment was stale.** A cached response, a deploy in progress (compare the build fingerprints in
    `build.tsv`), a queue that had not processed yet.
 5. **The oracle is out of date or misread.** The source says something else than the case claims, or a later decision
-   changed it. Quote the source.
+   changed it. Quote the source. If the source document is not available to you, say so in one line; that alone does
+   not make the finding doubtful, because the plan fixed the expectation from that source before the run and
+   `check_plan.py` accepted it.
 
 You may run read-only commands to check these (GET requests through the plugin's `qa_http.py`, read-only queries the
 user configured, `git log` on the spec). Never send writes, never edit product code, never edit CASES.md yourself.

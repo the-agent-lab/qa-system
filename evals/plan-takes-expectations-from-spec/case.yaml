@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: plan-takes-expectations-from-spec
-description: The spec says 10% off and HTTP 422 for an expired code; the code under test gives 20% and HTTP 400. A plan must take its expected results from the spec.
+description: The spec says 10% off and that an expired code is rejected, without a status code or message; the code under test gives 20% and HTTP 400 'invalid'. A plan must take expectations from the spec and leave what the spec does not say as an open question, not copy it from the code.
 tags: [plan]
 context:
   scaffold_script: fixture.sh
