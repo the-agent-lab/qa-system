@@ -9,7 +9,8 @@ argument-hint: "<run folder>"
 Every verdict this skill writes has to survive someone asking "how do you know?". So each check records what was
 expected, what was observed, and a file or logged call that shows it.
 
-Run folder: the folder named in `${user_config.report_dir}/.active`, unless the user names another one.
+Run folder: the folder named in `<run folder root>/.active`, where the root is `${user_config.report_dir}`, or
+`qa` when that option is not set. Use another run folder only if the user names one.
 Test hosts (the only hosts that may receive writes): `${user_config.test_hosts}`.
 
 ## 1. Pin the build
@@ -28,11 +29,12 @@ Work through the cases table in order. For each case:
 **API**: call it through the logging wrapper, never a bare `curl`:
 
 ```bash
-python3 "${CLAUDE_SKILL_DIR}/qa_http.py" --run "<run folder>" --case C1 --hosts "${user_config.test_hosts}" \
+python3 "${CLAUDE_SKILL_DIR}/qa_http.py" --run "<run folder>" --case C1 --hosts '${user_config.test_hosts}' \
   --method POST --url "<url>" --header "Content-Type: application/json" --data '<body>' --expect-status 201
 ```
 
-The wrapper refuses POST, PUT, PATCH and DELETE to any host outside the test hosts. If it refuses, do not work around
+Keep the single quotes around the test hosts placeholder. If no test hosts are configured, the wrapper treats every
+host as read-only. The wrapper refuses POST, PUT, PATCH and DELETE to any host outside the test hosts. If it refuses, do not work around
 it: the target is not a test server, so stop and tell the user.
 
 **Database**: use the read-only query command the user gave you. Save the output to `evidence/<case>-<what>.txt`,

@@ -17,6 +17,8 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / "lib"))
+from qa_core import configured  # noqa: E402
 
 
 def main(argv=None) -> int:
@@ -25,7 +27,7 @@ def main(argv=None) -> int:
     ap.add_argument("--name")
     ap.add_argument("--close", action="store_true")
     a = ap.parse_args(argv)
-    root = Path(a.root)
+    root = Path(configured(a.root, "qa"))
     marker = root / ".active"
     if a.close:
         if marker.exists():

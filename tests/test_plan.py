@@ -72,5 +72,21 @@ class NewRun(unittest.TestCase):
         self.assertFalse((d / "qa" / ".active").exists())
 
 
+class UnsetOption(unittest.TestCase):
+    def test_placeholder_left_by_an_unset_option_means_default_folder(self):
+        import tempfile
+        from pathlib import Path
+        d = Path(tempfile.mkdtemp())
+        r = py("skills/plan/new_run.py", "--root", "${user_config.report_dir}", "--name", "x", cwd=str(d))
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertTrue((d / "qa" / ".active").exists())
+        self.assertFalse(any(p.name.startswith("$") for p in d.iterdir()))
+
+    def test_placeholder_hosts_allow_no_writes(self):
+        import qa_core as q
+        self.assertEqual(q.parse_hosts("${user_config.test_hosts}"), [])
+        self.assertEqual(q.parse_hosts("staging.example.com"), ["staging.example.com"])
+
+
 if __name__ == "__main__":
     unittest.main()

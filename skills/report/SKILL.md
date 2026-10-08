@@ -6,7 +6,8 @@ argument-hint: "<run folder>"
 
 # Report a QA run
 
-Run folder: the folder named in `${user_config.report_dir}/.active`, unless the user names another one.
+Run folder: the folder named in `<run folder root>/.active`, where the root is `${user_config.report_dir}`, or
+`qa` when that option is not set. Use another run folder only if the user names one.
 
 ## 1. Classify the failures
 
@@ -52,7 +53,7 @@ If you edit report.md by hand, run `python3 "${CLAUDE_SKILL_DIR}/report.py" "<ru
 ## 4. Close the run and hand over
 
 ```bash
-python3 "${CLAUDE_SKILL_DIR}/../plan/new_run.py" --root "${user_config.report_dir}" --close
+python3 "${CLAUDE_SKILL_DIR}/../plan/new_run.py" --root '${user_config.report_dir}' --close
 ```
 
 Tell the user the verdict and the reason in one sentence, then list the suspected bugs with their evidence files and

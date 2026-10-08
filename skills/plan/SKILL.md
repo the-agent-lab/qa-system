@@ -18,8 +18,11 @@ user for one before going further. A plan without a source can only restate the 
 ## 2. Open a run
 
 ```bash
-python3 "${CLAUDE_SKILL_DIR}/new_run.py" --root "${user_config.report_dir}" --name "<short name of the feature>"
+python3 "${CLAUDE_SKILL_DIR}/new_run.py" --root '${user_config.report_dir}' --name "<short name of the feature>"
 ```
+
+Keep the single quotes. If the plugin's options were never set, the placeholder stays as written and the script uses
+`qa` as the folder, so you do not need to check the setting first.
 
 This creates `<report_dir>/<date>-<name>/` with `CASES.md` from the template and marks the run active. While a run is
 active, the plugin's write guard blocks HTTP write requests to hosts that are not in the configured test hosts.

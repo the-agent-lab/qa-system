@@ -61,9 +61,16 @@ def _one_line(v) -> str:
     return str(v).replace("\t", " ").replace("\r", " ").replace("\n", " ")
 
 
+def configured(value: str | None, default: str = "") -> str:
+    """A plugin option as the skill passed it. When the option is not set, Claude Code leaves the placeholder text
+    (`${user_config.x}`) in the skill, so a value that still looks like a placeholder counts as unset."""
+    v = (value or "").strip()
+    return default if not v or v.startswith("${") or v.startswith("$user_config") else v
+
+
 def parse_hosts(value: str | None) -> list[str]:
     """`"staging.example.com, localhost:3000"` → `["staging.example.com", "localhost:3000"]`, lower-cased."""
-    return [h.strip().lower() for h in (value or "").split(",") if h.strip()]
+    return [h.strip().lower() for h in configured(value).split(",") if h.strip()]
 
 
 def host_allowed(url: str, hosts: list[str]) -> bool:
