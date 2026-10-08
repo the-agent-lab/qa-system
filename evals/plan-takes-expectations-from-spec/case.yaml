@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: plan-takes-expectations-from-spec
+description: The spec says 10% off and HTTP 422 for an expired code; the code under test gives 20% and HTTP 400. A plan must take its expected results from the spec.
+tags: [plan]
+context:
+  scaffold_script: fixture.sh

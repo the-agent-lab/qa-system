@@ -1,0 +1,28 @@
+{
+  "name": "nghiem",
+  "displayName": "Nghiem QA",
+  "version": "0.1.0",
+  "description": "QA that can fail: expected results are fixed before the code is read, every verdict points to evidence, and failures are classified and reported instead of patched.",
+  "author": {
+    "name": "Lê Danh Trọng",
+    "url": "https://github.com/wifildt"
+  },
+  "homepage": "https://github.com/the-agent-lab/qa-system",
+  "repository": "https://github.com/the-agent-lab/qa-system",
+  "license": "MIT",
+  "keywords": ["qa", "testing", "verification", "evidence", "test-plan", "istqb"],
+  "userConfig": {
+    "test_hosts": {
+      "type": "string",
+      "title": "Test hosts",
+      "description": "Comma-separated host names that QA may send write requests (POST, PUT, PATCH, DELETE) to, for example staging.example.com,localhost. Every other host is read-only during a QA run.",
+      "required": true
+    },
+    "report_dir": {
+      "type": "string",
+      "title": "Run folder",
+      "description": "Folder inside the project where QA runs are written.",
+      "default": "qa"
+    }
+  }
+}
